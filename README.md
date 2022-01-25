@@ -33,7 +33,7 @@ conda install pytables
 
 If you use this repository, e.g., the code and the datasets, in your research, please cite the following paper:
 ```
-@inproceedings{ang2021hamp,
+@inproceedings{hamp_iui2021,
     title={Learning User Interface Semantics from Heterogeneous Networks with Multimodal and Positional Attributes},
     author={Ang, Gary and Lim, Ee-Peng},
     booktitle={27th ACM International Conference on Intelligent User Interfaces (IUI 2022)},
