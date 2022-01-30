@@ -216,22 +216,23 @@ for epoch in tqdm(np.arange(n_epoch)+1):
     scheduler.step()
     if epoch % 5 == 0:
         model.eval()
-        logits = model(G, selected_element)
-        pred   = logits.argmax(1).cpu()
-        train_acc = (pred[train_idx] == labels[train_idx]).float().mean()
-        val_acc   = (pred[val_idx]   == labels[val_idx]).float().mean()
-        test_acc  = (pred[test_idx]  == labels[test_idx]).float().mean()
+        with torch.no_grad():
+            logits = model(G, selected_element)
+            pred   = logits.argmax(1).cpu()
+            train_acc = (pred[train_idx] == labels[train_idx]).float().mean()
+            val_acc   = (pred[val_idx]   == labels[val_idx]).float().mean()
+            test_acc  = (pred[test_idx]  == labels[test_idx]).float().mean()
 
-        test_micro_f1 = f1_score(labels[test_idx].detach().cpu().numpy(), pred[test_idx].numpy(), average='micro')
-        test_macro_f1 = f1_score(labels[test_idx].detach().cpu().numpy(), pred[test_idx].numpy(), average='macro')
+            test_micro_f1 = f1_score(labels[test_idx].detach().cpu().numpy(), pred[test_idx].numpy(), average='micro')
+            test_macro_f1 = f1_score(labels[test_idx].detach().cpu().numpy(), pred[test_idx].numpy(), average='macro')
 
-        if best_val_acc < val_acc:
-            best_val_acc = val_acc
-            best_test_acc = test_acc
-            if (best_micro_f1 < test_micro_f1) & (best_macro_f1 < test_macro_f1):
-                best_micro_f1 = test_micro_f1
-                best_macro_f1 = test_macro_f1
-                best_epoch = epoch
+            if best_val_acc < val_acc:
+                best_val_acc = val_acc
+                best_test_acc = test_acc
+                if (best_micro_f1 < test_micro_f1) & (best_macro_f1 < test_macro_f1):
+                    best_micro_f1 = test_micro_f1
+                    best_macro_f1 = test_macro_f1
+                    best_epoch = epoch
 
 print('='*100)
 print(f'Test - Best - Micro F1: {best_micro_f1} | Macro F1: {best_macro_f1} | Best epoch: {best_epoch}')
