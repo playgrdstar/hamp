@@ -1,8 +1,5 @@
 # Byte-compiled / optimized / DLL files
-models.py
-train.py
-README_.md
-requirements.txt
+WIP/
 
 __pycache__/
 *.py[cod]
