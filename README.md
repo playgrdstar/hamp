@@ -14,7 +14,7 @@ Due to Github's size constraints (as the data is >100MB), please email me (at pl
 ### Repository Organization
 - ``data/rico_n`` this should contain the pre-processed datasets. 
 - ``models.py`` contains the models
-- ``train.py`` is the notebook that can be used to load pre-trained model or train the model 
+- ``train.py`` trains the model 
 
 ### Running the code
 Run command below for the UI screen genre classification task. Change to task=='element_comp_class' for the UI element component type classification task.
